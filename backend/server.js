@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import notesRouter from "../frontend/src/api/notes.js"; // Ensure correct path
+import notesRouter from "./routes/notes.js"; // Ensure correct path
 
 dotenv.config();
 

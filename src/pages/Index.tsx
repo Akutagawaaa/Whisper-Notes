@@ -12,6 +12,7 @@ import NotebooksSection from "@/components/NotebooksSection";
 import ThemeSelector from "@/components/ThemeSelector";
 import { useNotes } from "@/context/NotesContext";
 import { useThemes } from "@/context/ThemesContext";
+import { useAuth } from "@/context/AuthContext";
 import { Book, ArrowRight, Tag, Star, PenLine, Pencil, Palette, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -60,6 +61,7 @@ const features = [
 const Index = () => {
   const { notes, addNote } = useNotes();
   const { currentTheme } = useThemes();
+  const { isAuthenticated, user } = useAuth();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<'notebooks' | 'themes' | null>(null);
 
@@ -70,11 +72,7 @@ const Index = () => {
 
   return (
     <PageTransition>
-      <div className={`min-h-screen relative overflow-x-hidden ${
-        currentTheme.darkMode 
-          ? "bg-gradient-to-b from-ghibli-navy to-gray-900 text-ghibli-cream" 
-          : "bg-gradient-to-b from-ghibli-sky-light to-ghibli-beige"
-      }`}>
+      <div className={`min-h-screen relative overflow-x-hidden ${currentTheme.backgroundGradient} ${currentTheme.textColor}`}>
         <div className="absolute inset-0 -z-10">
           <WeatherBackground className="h-full" />
         </div>
@@ -101,18 +99,30 @@ const Index = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-ghibli-navy leading-tight mb-6"
+                    className={`text-4xl md:text-5xl lg:text-6xl font-heading font-bold ${currentTheme.textColor} leading-tight mb-6`}
                   >
-                    Capture Your <span className="text-ghibli-terracotta">Magical</span> Moments
+                    {isAuthenticated ? (
+                      <>
+                        Welcome back, <span className="text-ghibli-terracotta">{user?.name}</span>! ✨
+                      </>
+                    ) : (
+                      <>
+                        Capture Your <span className="text-ghibli-terracotta">Magical</span> Moments
+                      </>
+                    )}
                   </motion.h1>
                   
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-lg text-ghibli-navy/80 mb-8 leading-relaxed max-w-xl"
+                    className={`text-lg ${currentTheme.textColor} opacity-80 mb-8 leading-relaxed max-w-xl`}
                   >
-                    A whimsical note-taking app that brings the enchanting world of Studio Ghibli to your everyday thoughts, reminders, and dreams.
+                    {isAuthenticated ? (
+                      "Ready to continue your magical journaling journey? Create new notes, explore themes, or dive into your existing collection."
+                    ) : (
+                      "A whimsical note-taking app that brings the enchanting world of Studio Ghibli to your everyday thoughts, reminders, and dreams."
+                    )}
                   </motion.p>
                   
                   <motion.div
@@ -121,16 +131,46 @@ const Index = () => {
                     transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="flex flex-col sm:flex-row gap-4"
                   >
-                    <Button 
-                      className="btn-ghibli group"
-                      onClick={() => setIsEditorOpen(true)}
-                    >
-                      <span>Start Writing</span>
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                    <Button variant="outline" className="btn-outline">
-                      Explore Themes
-                    </Button>
+                    {isAuthenticated ? (
+                      <>
+                        <Button 
+                          className="btn-ghibli group"
+                          onClick={() => setIsEditorOpen(true)}
+                        >
+                          <span>New Note</span>
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                        <Link to="/notes">
+                          <Button variant="outline" className="btn-outline">
+                            View My Notes
+                          </Button>
+                        </Link>
+                        <Link to="/themes">
+                          <Button variant="outline" className="btn-outline">
+                            Themes
+                          </Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/signup">
+                          <Button className="btn-ghibli group">
+                            <span>Get Started</span>
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          </Button>
+                        </Link>
+                        <Link to="/login">
+                          <Button variant="outline" className="btn-outline">
+                            Sign In
+                          </Button>
+                        </Link>
+                        <Link to="/themes">
+                          <Button variant="outline" className="btn-outline">
+                            Explore Themes
+                          </Button>
+                        </Link>
+                      </>
+                    )}
                   </motion.div>
                 </div>
               </div>

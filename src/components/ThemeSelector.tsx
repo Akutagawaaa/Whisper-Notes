@@ -16,7 +16,7 @@ const ThemeSelector = () => {
 
   return (
     <div className="py-8">
-      <h2 className="text-3xl font-heading font-bold text-ghibli-navy dark:text-ghibli-cream mb-6">
+      <h2 className={`text-3xl font-heading font-bold ${currentTheme.textColor} mb-6`}>
         Choose Your Theme
       </h2>
       
@@ -72,7 +72,7 @@ const ThemeSelector = () => {
       </div>
       
       <div className="mt-8">
-        <p className="text-sm text-ghibli-navy/60 dark:text-ghibli-cream/60 italic">
+        <p className={`text-sm ${currentTheme.textColor} opacity-60 italic`}>
           Themes will affect colors, backgrounds, and the overall mood of your notebooks.
           Select the one that best matches your journaling vibe!
         </p>

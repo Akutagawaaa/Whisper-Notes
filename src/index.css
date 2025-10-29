@@ -49,6 +49,11 @@
     --ghibli-navy: #1F2937;
     --ghibli-amber: #F8D078;
     --ghibli-cream: #FEF9EF;
+    
+    /* Dynamic theme variables */
+    --theme-primary: #A4C6E7;
+    --theme-secondary: #F7EFE2;
+    --theme-accent: #E6C17A;
   }
 
   .dark {
@@ -97,6 +102,15 @@
     background-size: 40px 40px;
     background-position: -20px -20px;
   }
+  
+  /* Apply theme-specific background patterns */
+  .theme-totoro-forest body,
+  .theme-spirited-bath body,
+  .theme-kiki-delivery body,
+  .theme-default body,
+  .theme-ghibli-night body {
+    background-image: var(--theme-bg-pattern), radial-gradient(rgba(248, 208, 120, 0.1) 1px, transparent 0);
+  }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
@@ -129,6 +143,32 @@
     );
     background-size: 40rem 100%;
     animation: shimmer 2s infinite linear;
+  }
+  
+  /* Theme-specific styling */
+  .theme-totoro-forest {
+    --theme-bg-pattern: radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%);
+  }
+  
+  .theme-spirited-bath {
+    --theme-bg-pattern: radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.1) 0%, transparent 50%);
+  }
+  
+  .theme-kiki-delivery {
+    --theme-bg-pattern: radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+  }
+  
+  .theme-default {
+    --theme-bg-pattern: radial-gradient(circle at 20% 80%, rgba(164, 198, 231, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(230, 193, 122, 0.1) 0%, transparent 50%);
+  }
+  
+  .theme-ghibli-night {
+    --theme-bg-pattern: radial-gradient(circle at 20% 80%, rgba(248, 208, 120, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(31, 41, 55, 0.1) 0%, transparent 50%);
   }
 }
 

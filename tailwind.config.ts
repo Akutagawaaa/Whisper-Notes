@@ -65,6 +65,12 @@ export default {
 					'navy': '#1F2937',      // Deep midnight blue (night sky)
 					'amber': '#F8D078',     // Soft amber (night mode accents)
 					'cream': '#FEF9EF'      // Light cream (paper)
+				},
+				// Dynamic theme colors
+				theme: {
+					'primary': 'var(--theme-primary)',
+					'secondary': 'var(--theme-secondary)',
+					'accent': 'var(--theme-accent)'
 				}
 			},
 			fontFamily: {

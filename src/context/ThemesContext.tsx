@@ -11,6 +11,12 @@ export type ThemeType = {
   accentColor: string;
   backgroundImage?: string;
   darkMode?: boolean;
+  // Mode-specific styling
+  backgroundGradient: string;
+  textColor: string;
+  cardBackground: string;
+  cardTextColor: string;
+  accentTextColor: string;
 };
 
 interface ThemesContextType {
@@ -30,6 +36,11 @@ const GhibliThemes: ThemeType[] = [
     primaryColor: "#A4C6E7",
     secondaryColor: "#F7EFE2",
     accentColor: "#E6C17A",
+    backgroundGradient: "bg-gradient-to-b from-ghibli-sky-light to-ghibli-beige",
+    textColor: "text-ghibli-navy",
+    cardBackground: "bg-white/80",
+    cardTextColor: "text-ghibli-navy",
+    accentTextColor: "text-ghibli-terracotta",
   },
   {
     id: "totoro-forest",
@@ -39,6 +50,11 @@ const GhibliThemes: ThemeType[] = [
     primaryColor: "#8CAB93",
     secondaryColor: "#F7EFE2",
     accentColor: "#D4A28B",
+    backgroundGradient: "bg-gradient-to-b from-green-100 to-green-50",
+    textColor: "text-green-900",
+    cardBackground: "bg-green-50/90",
+    cardTextColor: "text-green-900",
+    accentTextColor: "text-green-700",
   },
   {
     id: "spirited-bath",
@@ -48,6 +64,11 @@ const GhibliThemes: ThemeType[] = [
     primaryColor: "#D4A28B",
     secondaryColor: "#F7EFE2",
     accentColor: "#E6C17A",
+    backgroundGradient: "bg-gradient-to-b from-red-100 to-orange-50",
+    textColor: "text-red-900",
+    cardBackground: "bg-red-50/90",
+    cardTextColor: "text-red-900",
+    accentTextColor: "text-red-700",
   },
   {
     id: "kiki-delivery",
@@ -57,6 +78,11 @@ const GhibliThemes: ThemeType[] = [
     primaryColor: "#E6BAB7",
     secondaryColor: "#F7EFE2",
     accentColor: "#A4C6E7",
+    backgroundGradient: "bg-gradient-to-b from-purple-100 to-pink-50",
+    textColor: "text-purple-900",
+    cardBackground: "bg-purple-50/90",
+    cardTextColor: "text-purple-900",
+    accentTextColor: "text-purple-700",
   },
   {
     id: "ghibli-night",
@@ -67,6 +93,11 @@ const GhibliThemes: ThemeType[] = [
     secondaryColor: "#374151",
     accentColor: "#F8D078",
     darkMode: true,
+    backgroundGradient: "bg-gradient-to-b from-ghibli-navy to-gray-900",
+    textColor: "text-ghibli-cream",
+    cardBackground: "bg-ghibli-navy/60",
+    cardTextColor: "text-ghibli-cream",
+    accentTextColor: "text-ghibli-amber",
   },
 ];
 
@@ -96,6 +127,15 @@ export const ThemesProvider = ({ children }: { children: ReactNode }) => {
             } else {
               document.documentElement.classList.remove('dark');
             }
+            
+            // Apply theme colors to CSS variables
+            document.documentElement.style.setProperty('--theme-primary', foundTheme.primaryColor);
+            document.documentElement.style.setProperty('--theme-secondary', foundTheme.secondaryColor);
+            document.documentElement.style.setProperty('--theme-accent', foundTheme.accentColor);
+            
+            // Apply theme mode classes to body
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.body.classList.add(`theme-${foundTheme.id}`);
           }
         }
       } catch (error) {
@@ -119,6 +159,15 @@ export const ThemesProvider = ({ children }: { children: ReactNode }) => {
       } else {
         document.documentElement.classList.remove('dark');
       }
+      
+      // Apply theme colors to CSS variables
+      document.documentElement.style.setProperty('--theme-primary', currentTheme.primaryColor);
+      document.documentElement.style.setProperty('--theme-secondary', currentTheme.secondaryColor);
+      document.documentElement.style.setProperty('--theme-accent', currentTheme.accentColor);
+      
+      // Apply theme mode classes to body
+      document.body.className = document.body.className.replace(/theme-\w+/g, '');
+      document.body.classList.add(`theme-${currentTheme.id}`);
     }
   }, [currentTheme, isLoading]);
 

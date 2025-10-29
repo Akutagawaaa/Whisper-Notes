@@ -13,11 +13,7 @@ const Themes = () => {
   
   return (
     <PageTransition>
-      <div className={`min-h-screen relative ${
-        currentTheme.darkMode 
-          ? "bg-gradient-to-b from-ghibli-navy to-gray-900 text-ghibli-cream" 
-          : "bg-gradient-to-b from-ghibli-sky-light to-ghibli-beige"
-      }`}>
+      <div className={`min-h-screen relative ${currentTheme.backgroundGradient} ${currentTheme.textColor}`}>
         <div className="absolute inset-0 -z-10">
           <WeatherBackground className="h-full" />
         </div>
@@ -32,10 +28,11 @@ const Themes = () => {
               </Button>
             </Link>
             <div>
-              <span className="inline-block bg-ghibli-terracotta/10 text-ghibli-terracotta dark:bg-ghibli-terracotta/20 px-3 py-1 rounded-full text-sm font-medium mb-2">
+              <span className={`inline-block ${currentTheme.accentTextColor} bg-opacity-10 px-3 py-1 rounded-full text-sm font-medium mb-2`}
+                    style={{ backgroundColor: `${currentTheme.accentColor}20` }}>
                 Personalization
               </span>
-              <h1 className="text-3xl md:text-4xl font-heading font-bold text-ghibli-navy dark:text-ghibli-cream">
+              <h1 className={`text-3xl md:text-4xl font-heading font-bold ${currentTheme.textColor}`}>
                 Themes & Appearance
               </h1>
             </div>
@@ -43,14 +40,14 @@ const Themes = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <div className="bg-white/80 dark:bg-ghibli-navy/60 backdrop-blur-sm rounded-xl p-6 shadow-soft mb-8">
+              <div className={`${currentTheme.cardBackground} backdrop-blur-sm rounded-xl p-6 shadow-soft mb-8`}>
                 <div className="flex items-center gap-3 mb-4">
-                  <Palette className="h-5 w-5 text-ghibli-terracotta" />
-                  <h2 className="text-xl font-heading font-semibold text-ghibli-navy dark:text-ghibli-cream">
+                  <Palette className={`h-5 w-5 ${currentTheme.accentTextColor}`} />
+                  <h2 className={`text-xl font-heading font-semibold ${currentTheme.cardTextColor}`}>
                     Theme Collection
                   </h2>
                 </div>
-                <p className="text-ghibli-navy/70 dark:text-ghibli-cream/70 mb-6">
+                <p className={`${currentTheme.cardTextColor} opacity-70 mb-6`}>
                   Select a theme that reflects your mood and inspiration. Each theme is carefully crafted to evoke the magical world of Studio Ghibli.
                 </p>
                 
@@ -59,16 +56,16 @@ const Themes = () => {
             </div>
             
             <div>
-              <div className="bg-white/80 dark:bg-ghibli-navy/60 backdrop-blur-sm rounded-xl p-6 shadow-soft mb-8">
+              <div className={`${currentTheme.cardBackground} backdrop-blur-sm rounded-xl p-6 shadow-soft mb-8`}>
                 <div className="flex items-center gap-3 mb-4">
-                  <Sun className="h-5 w-5 text-ghibli-gold" />
-                  <h2 className="text-xl font-heading font-semibold text-ghibli-navy dark:text-ghibli-cream">
+                  <Sun className={`h-5 w-5 ${currentTheme.accentTextColor}`} />
+                  <h2 className={`text-xl font-heading font-semibold ${currentTheme.cardTextColor}`}>
                     Appearance
                   </h2>
                 </div>
                 
                 <div className="space-y-4">
-                  <p className="text-ghibli-navy/70 dark:text-ghibli-cream/70 mb-4">
+                  <p className={`${currentTheme.cardTextColor} opacity-70 mb-4`}>
                     Choose your preferred appearance mode:
                   </p>
                   
@@ -105,28 +102,18 @@ const Themes = () => {
                 </div>
               </div>
               
-              <div className="bg-white/80 dark:bg-ghibli-navy/60 backdrop-blur-sm rounded-xl p-6 shadow-soft">
-                <h3 className="text-lg font-heading font-semibold text-ghibli-navy dark:text-ghibli-cream mb-3">
+              <div className={`${currentTheme.cardBackground} backdrop-blur-sm rounded-xl p-6 shadow-soft`}>
+                <h3 className={`text-lg font-heading font-semibold ${currentTheme.cardTextColor} mb-3`}>
                   Preview
                 </h3>
-                <div className={`aspect-video rounded-lg overflow-hidden relative ${
-                  currentTheme.darkMode ? 'bg-ghibli-navy' : 'bg-ghibli-beige'
-                }`}>
+                <div className={`aspect-video rounded-lg overflow-hidden relative ${currentTheme.cardBackground}`}>
                   <div className="absolute inset-0 p-4">
-                    <div className={`h-3 w-20 rounded-full mb-2 ${
-                      currentTheme.darkMode ? 'bg-ghibli-cream/20' : 'bg-ghibli-navy/20'
-                    }`}></div>
-                    <div className={`h-2 w-32 rounded-full mb-4 ${
-                      currentTheme.darkMode ? 'bg-ghibli-cream/10' : 'bg-ghibli-navy/10'
-                    }`}></div>
+                    <div className={`h-3 w-20 rounded-full mb-2 ${currentTheme.textColor} opacity-20`}></div>
+                    <div className={`h-2 w-32 rounded-full mb-4 ${currentTheme.textColor} opacity-10`}></div>
                     
-                    <div className={`h-16 w-full rounded-lg mb-3 ${
-                      currentTheme.darkMode ? 'bg-ghibli-cream/5' : 'bg-white/50'
-                    }`}></div>
+                    <div className={`h-16 w-full rounded-lg mb-3 ${currentTheme.cardBackground} opacity-50`}></div>
                     
-                    <div className={`h-16 w-full rounded-lg ${
-                      currentTheme.darkMode ? 'bg-ghibli-cream/5' : 'bg-white/50'
-                    }`}></div>
+                    <div className={`h-16 w-full rounded-lg ${currentTheme.cardBackground} opacity-50`}></div>
                     
                     <div className="absolute bottom-4 right-4 h-8 w-8 rounded-full"
                       style={{ backgroundColor: currentTheme.primaryColor }}
